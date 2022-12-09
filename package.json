@@ -1,9 +1,9 @@
 {
-  "name": "electron-vue-vite",
-  "version": "2.0.0",
+  "name": "markdown-notepad",
+  "version": "0.0.0",
   "main": "dist-electron/main/index.js",
-  "description": "Really simple Electron + Vue + Vite boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "A electron markdown notepad in Windows.",
+  "author": "Jimmy",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -13,7 +13,10 @@
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "cherry-markdown": "^0.8.9",
+    "esbuild": "*"
+  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.2",
     "electron": "^22.0.0",
