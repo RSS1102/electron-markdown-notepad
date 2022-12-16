@@ -46,7 +46,9 @@ async function createWindow() {
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
+      //警告：启用nodeIntegration并禁用contextIsolation在生产中不安全
       // Consider using contextBridge.exposeInMainWorld
+      //考虑使用 contextBridge.exposeInMainWorld
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
       contextIsolation: false,
@@ -56,17 +58,20 @@ async function createWindow() {
   if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
     win.loadURL(url)
     // Open devTool if the app is not packaged
+    //如果应用程序未打包，则打开devTool
     win.webContents.openDevTools()
   } else {
     win.loadFile(indexHtml)
   }
 
   // Test actively push message to the Electron-Renderer
+  //测试主动向电子呈现器推送消息
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', new Date().toLocaleString())
   })
 
   // Make all links open with the browser, not with the application
+  //使用浏览器而不是应用程序打开所有链接
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https:')) shell.openExternal(url)
     return { action: 'deny' }
@@ -85,6 +90,7 @@ app.on('window-all-closed', () => {
 app.on('second-instance', () => {
   if (win) {
     // Focus on the main window if the user tried to open another
+    // 如果用户试图打开另一个主窗口，请将焦点放在主窗口上
     if (win.isMinimized()) win.restore()
     win.focus()
   }
@@ -100,6 +106,7 @@ app.on('activate', () => {
 })
 
 // New window example arg: new windows url
+// 新窗口示例参数：新窗口url
 ipcMain.handle('open-win', (event, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: {

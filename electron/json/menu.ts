@@ -1,4 +1,4 @@
-import { dialog, shell } from "electron"
+import { dialog, MenuItem, MenuItemConstructorOptions, shell } from "electron"
 import packageInfo from "../../package.json"
 
 const info = () => {
@@ -16,7 +16,7 @@ const info = () => {
     })
 }
 const isMac = process.platform === 'darwin';
-const menuConfig = [
+const menuConfig: Array<MenuItemConstructorOptions | MenuItem>  = [
     {
         label: '文件',
         submenu: [
@@ -57,13 +57,10 @@ const menuConfig = [
             },
             {
                 label: '关于',
-                click: function () {
-                    info()
-                }
+                click: ()=>info()
             }
         ]
     },
-
 ]
 
 export {
