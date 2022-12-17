@@ -1,4 +1,4 @@
-import { dialog, MenuItem, MenuItemConstructorOptions, shell } from "electron"
+import { app, dialog, MenuItem, MenuItemConstructorOptions, shell } from "electron"
 import packageInfo from "../../package.json"
 
 const info = () => {
@@ -15,8 +15,17 @@ const info = () => {
         }
     })
 }
+/**
+ * @desc 判断是否为Mac
+ * @doc [process.platform](https://nodejs.org/api/process.html#processplatform)
+ */
 const isMac = process.platform === 'darwin';
-const menuConfig: Array<MenuItemConstructorOptions | MenuItem>  = [
+/**
+ * @desc 判断是否为生产环境
+ * @doc 
+ */
+const isPackaged: boolean = app.isPackaged
+const menuConfig: Array<MenuItemConstructorOptions | MenuItem> = [
     {
         label: '文件',
         submenu: [
@@ -30,7 +39,7 @@ const menuConfig: Array<MenuItemConstructorOptions | MenuItem>  = [
             },
             {
                 label: '退出',
-                role: 'close'
+                role: isMac ? "quit" : 'close'
             },
 
         ]
@@ -57,11 +66,16 @@ const menuConfig: Array<MenuItemConstructorOptions | MenuItem>  = [
             },
             {
                 label: '关于',
-                click: ()=>info()
+                click: () => info()
             }
         ]
     },
 ]
+
+isPackaged ? [] : menuConfig.push({
+    label: "打开toolsDev",
+    role: 'toggleDevTools'
+})
 
 export {
     menuConfig
