@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './samples/node-api'
+import "./style/index.scss"
 
 createApp(App)
   .mount('#app')
